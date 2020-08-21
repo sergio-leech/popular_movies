@@ -2,13 +2,13 @@ package com.example.popularmovies.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popularmovies.databinding.MovieItemBinding
 import com.example.popularmovies.models.Movie
 
-class MovieAdapter : ListAdapter<Movie, MovieAdapter.MovieViewHolder>(DiffCallback) {
+class MovieAdapter : PagedListAdapter<Movie, MovieAdapter.MovieViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
             MovieItemBinding.inflate(
@@ -20,7 +20,9 @@ class MovieAdapter : ListAdapter<Movie, MovieAdapter.MovieViewHolder>(DiffCallba
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.let { movie ->
+            holder.bind(movie)
+        }
     }
 
     class MovieViewHolder(private val binding: MovieItemBinding) :

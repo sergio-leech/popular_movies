@@ -23,18 +23,40 @@
         tools:context=".ui.PopularMoviesFragment"
         tools:listitem="@layout/movie_item" />
 
-    <TextView
-        android:id="@+id/statusInternetText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Відсутнє зєднання"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerViewMovies"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/statusInternet"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#D9000000"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/recyclerViewMovies" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_signal_coverage"
+            app:layout_constraintBottom_toTopOf="@+id/statusInternetText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/image_no_connection_to_internet" />
+
+        <TextView
+            android:id="@+id/statusInternetText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:text="@string/no_internet_connection"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

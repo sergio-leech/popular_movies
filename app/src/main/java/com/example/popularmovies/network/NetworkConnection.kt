@@ -9,7 +9,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.*
 import android.os.Build
-import android.util.Log
 import androidx.lifecycle.LiveData
 
 class NetworkConnection(private val context: Context) : LiveData<Boolean>() {
@@ -28,22 +27,25 @@ class NetworkConnection(private val context: Context) : LiveData<Boolean>() {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
                 lollipopNetworkRequest()
             }
-            else ->{
-                context.registerReceiver(networkReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+            else -> {
+                context.registerReceiver(
+                    networkReceiver,
+                    IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+                )
             }
         }
     }
 
     override fun onInactive() {
         super.onInactive()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-              try {
-                  connectivityManager.unregisterNetworkCallback(connectivityManagerCallback())
-              }catch (e:Exception){
-                  e.stackTrace
-              }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            try {
+                connectivityManager.unregisterNetworkCallback(connectivityManagerCallback())
+            } catch (e: Exception) {
+                e.stackTrace
+            }
 
-        }else{
+        } else {
             context.unregisterReceiver(networkReceiver)
         }
     }

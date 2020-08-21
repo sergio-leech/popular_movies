@@ -2,26 +2,23 @@ package com.example.popularmovies.view_models
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.example.popularmovies.data_source.MovieDataSource
+import com.example.popularmovies.data_source.MovieDataSourceFactory
 import com.example.popularmovies.models.Movie
-import com.example.popularmovies.repository.MovieRepository
-import kotlinx.coroutines.launch
 
-class PopularMoviesViewModel @ViewModelInject constructor(private val movieRepository: MovieRepository):ViewModel() {
-
-    private var _listMovie = MutableLiveData<List<Movie>>()
-    val listMovie:LiveData<List<Movie>>
-    get() = _listMovie
+class PopularMoviesViewModel @ViewModelInject constructor(dataSourceFactory: MovieDataSourceFactory) : ViewModel() {
+    val moviePagedList: LiveData<PagedList<Movie>>
+    private val liveDataSource: LiveData<MovieDataSource>
 
     init {
-        getListMovie()
-    }
-
-    private fun getListMovie(){
-        viewModelScope.launch {
-            _listMovie.postValue(movieRepository.getMovies().results)
-        }
+        liveDataSource = dataSourceFactory.movieLiveDataSource
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setPageSize(MovieDataSource.PAGE_SIZE)
+            .build()
+        moviePagedList = LivePagedListBuilder(dataSourceFactory, config).build()
     }
 }

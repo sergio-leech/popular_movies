@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Popular Movies</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="movie_poster">Movie poster</string>
+    <string name="rating">Rating </string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="image_no_connection_to_internet">Image no connection to internet</string>
 </resources>

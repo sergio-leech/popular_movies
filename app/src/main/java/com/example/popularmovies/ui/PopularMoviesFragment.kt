@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.example.popularmovies.R
+import androidx.recyclerview.widget.RecyclerView
 import com.example.popularmovies.adapters.MovieAdapter
 import com.example.popularmovies.databinding.FragmentPopularMoviesBinding
 import com.example.popularmovies.network.NetworkConnection
@@ -23,20 +23,23 @@ class PopularMoviesFragment : Fragment() {
     ): View? {
         val binding = FragmentPopularMoviesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
+
         val adapter = MovieAdapter()
+        adapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         val recyclerView = binding.recyclerViewMovies
         recyclerView.adapter = adapter
+
+        val statusInternet = binding.statusInternet
         val networkConnection = NetworkConnection(requireContext().applicationContext)
         networkConnection.observe(viewLifecycleOwner, Observer { isConnected ->
             if (isConnected) {
-                binding.statusInternetText.visibility = View.GONE
-                recyclerView.visibility = View.VISIBLE
-                viewModel.listMovie.observe(viewLifecycleOwner, Observer { listMovie ->
+                statusInternet.visibility = View.GONE
+                viewModel.moviePagedList.observe(viewLifecycleOwner, Observer { listMovie ->
                     adapter.submitList(listMovie)
                 })
             } else {
-                recyclerView.visibility = View.GONE
-                binding.statusInternetText.visibility = View.VISIBLE
+                statusInternet.visibility = View.VISIBLE
             }
         })
 

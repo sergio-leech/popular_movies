@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Популярні фільми</string>
+    <string name="rating">Рейтинг</string>
+    <string name="no_internet_connection">Відсутній інтернет</string>
+    <string name="movie_poster">Постер фільму</string>
+    <string name="image_no_connection_to_internet">Зображення відсутності інтернету</string>
+</resources>
