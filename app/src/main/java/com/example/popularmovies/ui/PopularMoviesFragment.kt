@@ -42,7 +42,6 @@ class PopularMoviesFragment : Fragment() {
                 statusInternet.visibility = View.VISIBLE
             }
         })
-
         return binding.root
     }
 }

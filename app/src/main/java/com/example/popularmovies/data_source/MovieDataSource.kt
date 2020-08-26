@@ -15,7 +15,7 @@ class MovieDataSource @Inject constructor(private val tmDbService: TMDbService) 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Movie>) {
         applicationScope.launch {
             try {
-                val responseItems = tmDbService.getPopularMoviesAsync(API_KEY, 4).await().results
+                val responseItems = tmDbService.getPopularMoviesAsync(API_KEY, FIRST_PAGE).await().results
                 responseItems.let {
                     callback.onResult(responseItems, null, FIRST_PAGE + 1)
                 }

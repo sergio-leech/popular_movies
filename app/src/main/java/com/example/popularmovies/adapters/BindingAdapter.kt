@@ -19,5 +19,4 @@ fun ImageView.bindImage(imageUrl: String?) {
 fun TextView.bindText(rating: Float) {
     val getRating = rating.toString()
     text = "${context.getString(R.string.rating)} $getRating"
-
 }
